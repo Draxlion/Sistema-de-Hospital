@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/prontuario.svg">
+    <title>Prontuário</title>
+
+
+
+    <style>
+        /* Estilo para a janela modal */
+
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-width: 150px; 
+            margin-bottom: 15px;
+        }
+
+        .close {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .close:hover {
+            background-color: #e53935;
+        }
+    </style>
+
+
+    <style>
+        /* Estilo para o layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(images/bg4.jpg);
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 25px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        form input, form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2a93e8;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #0571c9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .actions button {
+            background-color: #f57b2a;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 2px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .actions button.delete {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Janela Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <img src="images/correct.gif" alt="Imagem">
+            <p>Prontuário Atualizado</p>
+            <button class="close" onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Prontuário do Paciente</h2>
+        <form id="personForm">
+
+            <label for="employeeId">ID do Paciente:</label>
+            <input type="number" id="employeeId" required>
+
+            <label for="openDate">Data de abertura:</label>
+            <input type="date" id="openDate" required>
+
+            <label for="consultation">Consulta:</label>
+            <select id="consultation" required>
+                <option value="clinico">Clinico Geral</option>
+                <option value="cardiologista">Cardiologista</option>
+                <option value="ginecologista">Ginecologista</option>
+                <option value="gastrologista">Gastrologista</option>
+                <option value="urologista">Urologista</option>
+                <option value="neurologista">Neurologista</option>
+                <option value="otorrinolaringologista">Otorrinolaringologista</option>
+                <option value="endocrinologista">Endocrinologista</option>
+            </select>
+
+            <label for="queryHistory">Motivo da consulta:</label>
+            <select id="queryHistory" required>
+                <option value="consultaDeRotina">Consulta de rotina</option>
+                <option value="retorno">Retorno</option>
+                <option value="entregaDeExames">Entrega de exames</option>
+                <option value="outro">Outro</option>
+            </select>
+
+            <label for="observations">Observações:</label>
+            <input type="textarea" id="observations" required>
+
+            <label for="medications">Medicamentos:</label>
+            <input type="text" id="medications" >
+
+            <label for="revenue">Receitas:</label>
+            <input type="text" id="revenue" >
+
+            <label for="historyIllnesses">Histórico de doenças:</label>
+            <input type="text" id="historyIllnesses" required>
+            
+            <label for="exams">Exames para entregar:</label>
+            <select id="exams" required>
+                <option value="nenhum">Nenhum</option>
+                <option value="hemograma">Hemograma</option>
+                <option value="ultrassom">Ultrassom</option>
+                <option value="raioX">Raio X</option>
+                <option value="colesterol">Colesterol</option>
+                <option value="glicose">Glicose</option>
+                <option value="urina_e_fezes">Urina e fezes</option>
+                <option value="papanicolau">Papanicolau</option>
+                <option value="mamografia">Mamografia</option>
+                <option value="transaminases">Transaminases</option>
+                <option value="outros">Outros</option>
+            </select>
+
+            <label for="images">Adicionar imagem:</label>
+            <input type="file" id="images" accept="image/*">
+                
+
+            <button type="button" onclick="addPerson(); openModal()" >Cadastrar</button>
+        </form>
+        
+        <table id="personTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data de abertura</th>
+                    <th>Consulta</th>
+                    <th>Motivo da consulta</th>
+                    <th>Observações</th>
+                    <th>Medicamentos</th>
+                    <th>Receitas</th>
+                    <th>Histórico de doenças</th>
+                    <th>Exames para entregar</th>
+                    <th>Imagem</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        
+        function addPerson() {
+
+            const person = {
+                employeeId: document.getElementById("employeeId").value,
+                openDate: document.getElementById("openDate").value,
+                consultation: document.getElementById("consultation").value,
+                queryHistory: document.getElementById("queryHistory").value,
+                observations: document.getElementById("observations").value,
+                medications: document.getElementById("medications").value,
+                revenue: document.getElementById("revenue").value,
+                historyIllnesses: document.getElementById("historyIllnesses").value,
+                exams: document.getElementById("exams").value,
+                images: document.getElementById("images").value,
+            };
+
+            const persons = JSON.parse(localStorage.getItem("persons") || "[]");
+            persons.push(person);
+            localStorage.setItem("persons", JSON.stringify(persons));
+
+            renderTable();
+            document.getElementById("personForm").reset();
+        }
+
+        
+        function renderTable() {
+            const persons = JSON.parse(localStorage.getItem("persons") || "[]");
+            const tbody = document.querySelector("#personTable tbody");
+            tbody.innerHTML = "";
+
+            persons.forEach((person, index) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${person.employeeId}</td>
+                    <td>${person.openDate}</td>
+                    <td>${person.consultation}</td>
+                    <td>${person.queryHistory}</td>
+                    <td>${person.observations}</td>
+                    <td>${person.medications}</td>
+                    <td>${person.revenue}</td>
+                    <td>${person.historyIllnesses}</td>
+                    <td>${person.exams}</td>
+                    <td>${person.images}</td>
+                    <td class="actions">
+                        <button onclick="editPerson(${index})">Editar</button>
+                        <button class="delete" onclick="deletePerson(${index})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        
+        function editPerson(index) {
+            const persons = JSON.parse(localStorage.getItem("persons"));
+            const person = persons[index];
+
+            document.getElementById("employeeId").value = person.employeeId;
+            document.getElementById("openDate").value = person.openDate;
+            document.getElementById("consultation").value = person.consultation;
+            document.getElementById("queryHistory").value = person.queryHistory;
+            document.getElementById("observations").value = person.observations;
+            document.getElementById("medications").value = person.medications;
+            document.getElementById("revenue").value = person.revenue;
+            document.getElementById("historyIllnesses").value = person.historyIllnesses;
+            document.getElementById("exams").value = person.exams;
+            document.getElementById("images").value = person.images;
+
+            deletePerson(index);
+        }
+
+       
+        function deletePerson(index) {
+            const persons = JSON.parse(localStorage.getItem("persons"));
+            persons.splice(index, 1);
+            localStorage.setItem("persons", JSON.stringify(persons));
+            renderTable();
+        }
+
+        function addConsulta(){
+            window.open("agendamento/agenda/index.html");
+        }
+
+         /* Função para abrir a janela modal */
+
+         function openModal() {
+            document.getElementById("myModal").style.display = "flex";
+        }
+
+        /* Função para fechar a janela modal */
+        
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+        
+        document.addEventListener("DOMContentLoaded", renderTable);
+
+    </script>
+
+
+       
+
+</body>
+</html>
+
+

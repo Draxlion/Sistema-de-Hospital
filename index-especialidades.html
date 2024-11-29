@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/x-icon" href="images/user-plus.svg">
+    <title>Cadastro de Especialidades Médicas</title>
+
+    <style>
+        /* Estilo para a janela modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-width: 150px;
+            margin-bottom: 15px;
+        }
+
+        .close {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .close:hover {
+            background-color: #e53935;
+        }
+    </style>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(images/bg7.png);
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 25px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2a93e8;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0571c9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px; 
+            background-color: #fff; 
+            color: #333; /
+        }   
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .actions button {
+            background-color: #f57b2a;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 2px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .actions button.delete {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Modal de Sucesso (Especialidade Cadastrada) -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <img src="images/correct.gif" alt="Imagem">
+            <p>Especialidade Cadastrada</p>
+            <button class="close" onclick="closeModal('myModal')">Fechar</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Cadastro de Especialidades Médicas</h2>
+        <form id="specialtyForm">
+            <label for="specialty">Especialidade:</label>
+            <select id="name" required>
+                <option value="clinico">Clinico Geral</option>
+                <option value="cardiologista">Cardiologista</option>
+                <option value="ginecologista">Ginecologista</option>
+                <option value="gastrologista">Gastrologista</option>
+                <option value="urologista">Urologista</option>
+                <option value="neurologista">Neurologista</option>
+                <option value="otorrinolaringologista">Otorrinolaringologista</option>
+                <option value="endocrinologista">Endocrinologista</option>
+            </select>
+            
+            <label for="idMedico">ID do Médico(a):</label>
+            <input type="text" id="idMedico" required>
+            
+            <label for="crm">CRM</label>
+            <input type="number" id="crm" required>
+
+            <label for="description">Descrição da Especialidade:</label>
+            <input type="text" id="description" required>
+            
+            <label for="openDate">Data de Incremento:</label>
+            <input type="date" id="openDate" required>
+
+            <label for="proficiencyLevel">Nível de Proficiência:</label>
+            <select id="proficiencyLevel">
+                <option value="estudanteDeMedicina">Estudante de Medicina</option>
+                <option value="médicoResidentes">Médico Residentes</option>
+                <option value="médicoAssistente/Generalista ">Médico Assistente / Generalista </option>
+                <option value="médicoEspecialista">Médico Especialista</option>
+                <option value="médicoDeAltaPerformance">Médico de Alta Performance</option>
+            </select>
+
+            <label for="specialtyAdd">Especialidade adicional:</label>
+            <select id="specialtyAdd">
+                <option value="clinico">Clinico Geral</option>
+                <option value="cardiologista">Cardiologista</option>
+                <option value="ginecologista">Ginecologista</option>
+                <option value="gastrologista">Gastrologista</option>
+                <option value="urologista">Urologista</option>
+                <option value="neurologista">Neurologista</option>
+                <option value="otorrinolaringologista">Otorrinolaringologista</option>
+                <option value="endocrinologista">Endocrinologista</option>
+                <option value="nenhuma">Nenhuma</option>
+            </select>
+
+
+            <button type="button" onclick="addSpecialty(); openModal()">Cadastrar Especialidade</button>
+        </form>
+
+        <table id="specialtyTable">
+            <thead>
+                <tr>
+                    <th>Nome da Especialidade</th>
+                    <th>ID Equipe ou Médico(a)</th>
+                    <th>CRM</th>
+                    <th>Descrição</th>
+                    <th>Data de Incremento</th>
+                    <th>Nivel de Proficiência</th>
+                    <th>Especialidade Adicional</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        function addSpecialty() {
+            const specialty = {
+                name: document.getElementById("name").value,
+                idMedico: document.getElementById("idMedico").value,
+                crm: document.getElementById("crm").value,
+                description: document.getElementById("description").value,
+                openDate: document.getElementById("openDate").value,
+                proficiencyLevel: document.getElementById("proficiencyLevel").value,
+                specialtyAdd: document.getElementById("specialtyAdd").value,
+            };
+
+            const specialties = JSON.parse(localStorage.getItem("specialties") || "[]");
+            specialties.push(specialty);
+            localStorage.setItem("specialties", JSON.stringify(specialties));
+
+            renderSpecialtyTable();
+            document.getElementById("specialtyForm").reset();
+        }
+
+        function renderSpecialtyTable() {
+            const specialties = JSON.parse(localStorage.getItem("specialties") || "[]");
+            const tbody = document.querySelector("#specialtyTable tbody");
+            tbody.innerHTML = "";
+
+            specialties.forEach((specialty, index) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${specialty.name}</td>
+                    <td>${specialty.idMedico}</td>
+                    <td>${specialty.crm}</td>
+                    <td>${specialty.description}</td>
+                    <td>${specialty.openDate}</td>
+                    <td>${specialty.proficiencyLevel}</td>
+                    <td>${specialty.specialtyAdd}</td>
+                    <td class="actions">
+                        <button onclick="editSpecialty(${index})">Editar</button>
+                        <button class="delete" onclick="deleteSpecialty(${index})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function editSpecialty(index) {
+            const specialties = JSON.parse(localStorage.getItem("specialties"));
+            const specialty = specialties[index];
+
+            document.getElementById("name").value = specialty.name;
+            document.getElementById("idMedico").value = specialty.idMedico;
+            document.getElementById("crm").value = specialty.crm;
+            document.getElementById("description").value = specialty.description;
+            document.getElementById("proficiencyLevel").value = specialty.proficiencyLevel;
+            document.getElementById("specialtyAdd").value = specialty.specialtyAdd;
+
+            deleteSpecialty(index);
+        }
+
+        function deleteSpecialty(index) {
+            const specialties = JSON.parse(localStorage.getItem("specialties"));
+            specialties.splice(index, 1);
+            localStorage.setItem("specialties", JSON.stringify(specialties));
+            renderSpecialtyTable();
+        }
+
+        function openModal() {
+            document.getElementById("myModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        document.addEventListener("DOMContentLoaded", renderSpecialtyTable);
+    </script>
+</body>
+
+</html>

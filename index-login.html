@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="style-index.css">
+        <link rel="icon" type="image/x-icon" href="images/hospital-icon.svg">
+        <title>login</title>
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    </head>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .header{
+            position: fixed;
+            height: 80px;
+            width: 100%;
+            z-index: 100;
+            padding: 0 20px; 
+        }
+
+        .nav{
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .nav, .nav-item{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .nav a{
+            color: #fff;
+        }
+
+        a{
+            text-decoration: none;
+            color: #2a93e8;
+        }
+
+        .nav-item{
+            column-gap: 25px;
+        }
+
+        .nav-link, button{
+            color: #fff;
+        }
+
+        .nav-logo{
+            font-size: 25px;
+            color: #d9d9d9;
+        }
+
+        .nav_link:hover{
+            color: #d9d9d9;
+        }
+
+        .button{
+            padding: 6px 24px;
+            border: 2px solid #fff;
+            background: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .button:active{
+            transform: scale(0.98);
+        }
+
+        /* Home */
+
+        .home{
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            background-image: url("images/image.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .home.show .form_container{
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .home::before{
+            content: '';
+            position: absolute;
+            height:100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s ease-out;
+        }
+
+        .home.show::before{
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* From */
+
+        .form_container{
+            position: fixed;
+            max-width: 360px;
+            height: 390px; 
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.2);
+            z-index: 101;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s ease-out;
+        }
+
+        .form_close{
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #0b0217;
+            font-size: 22px;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .form_container h2{
+            font-size: 22px;
+            color: #0b0217;
+            text-align: center;
+
+        }
+
+        .form_container a{
+            color:#2a93e8;
+            font-size: 12px;
+        }
+
+        .form_container a:hover{
+            text-decoration: underline;
+        }
+
+        .input_box{
+            position: relative;
+            margin-top: 30px;
+            width: 100%;
+            height: 40px;
+        }
+
+        .input_box input{
+            height: 100%;
+            width: 100%;
+            border: none;
+            border-bottom: 1.5px solid #aaaaaa;
+            outline: none;
+            padding: 0 30px;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+
+        .input_box input:focus{
+            color: #2a93e8;
+        }
+
+        .input_box i{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #707070;
+        }
+
+        .input_box i.email, .input_box i.password{
+            left: 0px;
+        }
+
+        .input_box input:focus ~ i.email, 
+        .input_box input:focus ~ i.password{
+            color: #2a93e8;
+        }
+
+        .input_box i.pw_hide{
+            right: 0;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .option_field{
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .checkbox{
+            display: flex;
+            white-space: nowrap;
+            font-size: 12px;
+            column-gap: 8px;
+        }
+
+        .checkbox input{
+            accent-color: #2a93e8;
+        }
+
+        .checkbox label{
+            color: #0b0217;
+            font-size: 12px;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        /* Button Entrar*/
+        .form_container .button{
+            background: #2a93e8;
+            margin-top: 30px;
+            width: 100%;
+            padding: 10px 0;
+            border-radius: 10px;
+        }
+
+        /* Link de Cadastro de conta */
+
+        .login_signup{
+            font-size: 12px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .signup_form{
+            display: none;
+        }
+
+
+    </style>
+
+    <body>
+    
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
+                <a href="#" class="nav-logo">São Lucas & Mendel</a>
+        
+                <button class="button" id="form-open">login</button>
+            </nav>
+        </header>
+
+
+        <!-- Home -->
+        <section class="home">
+            <div class="form_container">
+                <i class="uil uil-times form_close"></i>
+                
+                <!-- Login From -->
+                <div class="form login_form">
+                    <form action="#">
+                    <h2>Login</h2> 
+
+                    <div class="input_box">
+                            <input type="text" id="userLog" placeholder="Usuário" required>
+                            <i class="uil uil-user email"></i>
+                            
+                            <div class="input_box">
+                                <input type="password" id="passLog" placeholder="Senha" required>
+                                <i class="uil uil-lock password" ></i>
+                                <i class="uil uil-eye-slash pw_hide"></i>
+                            </div>
+
+                            <div class="option_field">
+                                <span class="checkbox">
+                                    <input type="checkbox" id="check">
+                                    <label for="check">Lembre-se de mim</label>
+                                </span>
+                                <a href="#" class="forgot_pw">Esqueci minha senha</a>
+                            </div>
+
+                            <button type="button" class="button" onclick="logar(event)">Entrar</button>
+
+                            <div class="login_signup">
+                                Não tem uma conta? <a href="#" id="signup"> Cadastre-se</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Signup From -->
+                    <div class="form signup_form">
+                        <form action="#">
+                            <h2>Cadastre-se</h2> 
+
+                            <div class="input_box">
+                                <input type="email" placeholder="Digite seu email" required>
+                                <i class="uil uil-envelope-alt email"></i>
+                                
+                                <div class="input_box">
+                                    <input type="password" placeholder="Digite uma senha" required>
+                                    <i class="uil uil-lock password" ></i>
+                                    <i class="uil uil-eye-slash pw_hide"></i>
+                                </div>
+
+                                <div class="input_box">
+                                    <input type="password" placeholder="Confirme sua senha" required>
+                                    <i class="uil uil-lock password" ></i>
+                                    <i class="uil uil-eye-slash pw_hide"></i>
+                                </div>
+
+                                <button class="button">Criar Conta</button>
+
+                                <div class="login_signup">
+                                    Já tem uma conta? <a href="#" id="login">Fazer login</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </section>
+    </body>
+
+    
+    <script>
+        const formOpenBtn = document.querySelector ("#form-open"),
+        home = document.querySelector(".home"),
+        formContainer = document.querySelector(".form_container"),
+        formCloseBtn = document.querySelector(".form_close"),
+        signupBtn = document.querySelector("#signup"),
+        loginBtn = document.querySelector("#login"),
+        pwShowHide = document.querySelectorAll(".pw_hide");
+
+        formOpenBtn.addEventListener("click", () => home.classList.add("show"));
+        formCloseBtn.addEventListener("click", () => home.classList.remove("show"));
+
+        pwShowHide.forEach(icon => {
+            let getPwInput = icon.parentElement.querySelector("input");
+            console
+        })
+
+        pwShowHide.forEach((icon) => {
+            icon.addEventListener("click", ()  => {
+                let getPwInput = icon.parentElement.querySelector("input");
+                if(getPwInput.type === "password"){
+                    getPwInput.type = "text";
+                    icon.classList.replace("uil-eye-slash", "uil-eye")
+                }else{
+                    getPwInput.type = "password";
+                    icon.classList.replace("uil-eye", "uil-eye-slash")
+                }
+            });
+        });
+
+        signupBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            formContainer.classList.add("active"); // Adiciona a classe para mostrar o formulário de cadastro
+            formContainer.querySelector(".login_form").style.display = "none"; // Esconde o formulário de login
+            formContainer.querySelector(".signup_form").style.display = "block"; // Mostra o formulário de cadastro
+        });
+
+        loginBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            formContainer.classList.remove("active"); // Remove a classe que exibe o formulário
+            formContainer.querySelector(".login_form").style.display = "block"; // Mostra o formulário de login
+            formContainer.querySelector(".signup_form").style.display = "none"; // Esconde o formulário de cadastro
+        });
+
+
+        /* Controle de login */
+
+        function logar(event){
+            event.preventDefault(); // Evita o envio do formulário
+            var login = document.getElementById('userLog').value;
+            var senha = document.getElementById('passLog').value;
+
+            if (login == "admin" && senha == "admin") {
+                alert('Você está logado novamente!');
+                location.href = "Dashboard/dashboard.html"; 
+            }else{
+                alert('Usuário inválido, tente novamente...');
+            }
+        }      
+    </script>
+
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/users-alt.svg">
+    <title>Cadastro de Equipe Médica</title>
+
+    <style>
+        /* Estilo para a janela modal */
+
+        .modal {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .modal-content img {
+            width: 100%;
+            max-width: 150px; 
+            margin-bottom: 15px;
+        }
+
+        .close {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .close:hover {
+            background-color: #e53935;
+        }
+    </style>
+
+    <style>
+        /* Estilo para o layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url(images/bg5.png);
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            margin: auto;
+            padding: 25px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        form input, form select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #2a93e8;
+            color: white;
+            border: none;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #0571c9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .actions button {
+            background-color: #f57b2a;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 2px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .actions button.delete {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+     <!-- Modal de Sucesso (Paciente Cadastrado) -->
+     <div id="myModal" class="modal">
+        <div class="modal-content">
+            <img src="images/correct.gif" alt="Imagem">
+            <p>Equipe Cadastrada</p>
+            <button class="close" onclick="closeModal('myModal')">Fechar</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Cadastro de Equipe Médica</h2>
+        <form id="personForm">
+            <label for="idEquipe">ID da equipe:</label>
+            <input type="number" id="idEquipe" required>
+
+            <label for="members">Membros:</label>
+            <select id="members" multiple>
+                <option value="renata">Renata</option>
+                <option value="neide">Neide</option>
+                <option value="josé">José</option>
+                <option value="adriel">Adriel</option>
+                <option value="brenda">Brenda</option>
+                <option value="elisabete">Elisabete</option>
+                <option value="gabriela">Gabriela</option>
+                <option value="camila">Camila</option>
+                <option value="ana_claudia">Ana Cláudia</option>
+                <option value="cristiane">Cristiane</option>
+                <option value="vanessa">Vanessa</option>
+                <option value="maria_teresa">Maria Teresa</option>
+                <option value="monique">Monique</option>
+                <option value="isabela">Isabela</option>
+                <option value="carla">Carla</option>
+                <option value="pedro">Pedro</option>
+                <option value="lucas">Lucas</option>
+                <option value="joao">João</option>
+                <option value="gustavo">Gustavo</option>
+                <option value="tiago">Tiago</option>
+                <option value="rafael">Rafael</option>
+                <option value="andre">André</option>
+                <option value="marcos">Marcos</option>
+                <option value="felipe">Felipe</option>
+                <option value="thiago">Thiago</option>
+                <option value="ricardo">Ricardo</option>
+                <option value="victor">Victor</option>
+                <option value="daniela">Daniela</option>
+                <option value="julia">Julia</option>
+                <option value="mariana">Mariana</option>
+                <option value="carolina">Carolina</option>
+                <option value="patricia">Patrícia</option>
+                <option value="roberta">Roberta</option>
+                <option value="fernanda">Fernanda</option>
+                <option value="luciana">Luciana</option>
+                <option value="marcel">Marcel</option>
+                <option value="alexandre">Alexandre</option>
+                <option value="carlos">Carlos</option>
+                <option value="wallace">Wallace</option>
+                <option value="guilherme">Guilherme</option>
+                <option value="josue">Josué</option>
+                <option value="artur">Artur</option>
+                <option value="diego">Diego</option>
+            </select>
+
+            <label for="idMedico">ID dos médico da equipe:</label>
+            <input type="number" id="idMedico1" placeholder="ID membro 1"  required>
+            <input type="number" id="idMedico2" placeholder="ID membro 2"  required>
+            <input type="number" id="idMedico3" placeholder="ID membro 3"  required>
+            <input type="number" id="idMedico4" placeholder="ID membro 4"  required>
+            <input type="number" id="idMedico5" placeholder="ID membro 5"  required>
+
+            <label for="especialidade">Especialidade:</label>
+            <select id="especialidade">
+                <option value="cirurgiao geral">Cirurgião Geral</option>
+                <option value="cardiologista">Cardiologista</option>
+                <option value="ginecologista">Ginecologista</option>
+                <option value="gastrologista">Gastrologista</option>
+                <option value="obstreta">Obstreta</option>
+                <option value="neurologista">Neurologista</option>
+                <option value="cirurgiao dentista">Cirurgião Dentista</option>
+            </select>
+
+            <label for="openDate">Data de criação:</label>
+            <input type="date" id="openDate" required>
+
+            <button type="button" onclick="addPerson(); openModal()">Cadastrar</button>
+        </form>
+        
+        <table id="personTable">
+            <thead>
+                <tr>
+                    <th>ID da equipe</th>
+                    <th>Membros</th>
+                    <th>Id membros</th>
+                    <th>Especialidade</th>
+                    <th>Data de criação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        
+        function addPerson() {
+            
+            const membros = Array.from(document.getElementById("members").selectedOptions).map(option => option.value);
+            const idMembros = [
+                document.getElementById("idMedico1").value,
+                document.getElementById("idMedico2").value,
+                document.getElementById("idMedico3").value,
+                document.getElementById("idMedico4").value,
+                document.getElementById("idMedico5").value
+            ];
+
+            const person = {
+                idEquipe: document.getElementById("idEquipe").value,
+                membros: membros.join(", "), /* Converte a lista de membros para uma string separada por vírgulas */
+                idMembros: idMembros.join(", "), /* Parte que vai converter os ids dos membros para uma string separada por vírgulas */
+                especialidade: document.getElementById("especialidade").value,
+                openDate: document.getElementById("openDate").value,
+            };
+
+            /* Armazenando o objeto "person" no localStorage */
+            const persons = JSON.parse(localStorage.getItem("persons") || "[]");
+            persons.push(person);
+            localStorage.setItem("persons", JSON.stringify(persons));
+
+            /* Atualizando (renderizando) a tabela */
+            renderTable();
+
+            document.getElementById("personForm").reset();
+
+            openModal();
+        }
+
+        function renderTable() {
+            /* Limpeza da tabela antes de adicionar os novos dados */
+            const persons = JSON.parse(localStorage.getItem("persons") || "[]");
+            const tbody = document.querySelector("#personTable tbody");
+            tbody.innerHTML = ""; 
+
+            persons.forEach((person, index) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${person.idEquipe}</td>
+                    <td>${person.membros}</td>
+                    <td>${person.idMembros}</td>
+                    <td>${person.especialidade}</td>
+                    <td>${person.openDate}</td>
+                    <td class="actions">
+                        <button onclick="editPerson(${index})">Editar</button>
+                        <button class="delete" onclick="deletePerson(${index})">Excluir</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function editPerson(index) {
+            const persons = JSON.parse(localStorage.getItem("persons"));
+            const person = persons[index];
+
+            /* Preenchendo os campos com os dados da pessoa */
+            document.getElementById("idEquipe").value = person.idEquipe;
+            const selectedMembers = person.membros.split(", ");
+            const membersSelect = document.getElementById("members");
+            for (let option of membersSelect.options) {
+                option.selected = selectedMembers.includes(option.value);
+            }
+
+            const idMedicos = person.idMembros.split(", ");
+            document.getElementById("idMedico1").value = idMedicos[0] || "";
+            document.getElementById("idMedico2").value = idMedicos[1] || "";
+            document.getElementById("idMedico3").value = idMedicos[2] || "";
+            document.getElementById("idMedico4").value = idMedicos[3] || "";
+            document.getElementById("idMedico5").value = idMedicos[4] || "";
+
+            document.getElementById("especialidade").value = person.especialidade;
+            document.getElementById("openDate").value = person.openDate;
+
+            deletePerson(index); /* Exclui a entrada original antes de editar */
+        }
+
+        function deletePerson(index) {
+            const persons = JSON.parse(localStorage.getItem("persons"));
+            persons.splice(index, 1);
+            localStorage.setItem("persons", JSON.stringify(persons));
+            renderTable();
+        }
+
+        function openModal() {
+            document.getElementById("myModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        document.addEventListener("DOMContentLoaded", renderTable);
+
+    </script>
+</body>
+</html>
+
+
